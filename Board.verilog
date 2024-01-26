@@ -1,0 +1,54 @@
+`timescale 1ns / 1ps
+
+module Board (
+    plr_1_hlt,
+    plr_2_hlt,
+    plr_1_pos,
+    plr_2_pos,
+    plr_1_lst,
+    plr_2_lst,
+    plr_1_act,
+    plr_2_act,
+    plr_1_rst,
+    plr_2_rst,
+    clk
+);
+    output [1:0] plr_1_hlt;
+    output [1:0] plr_2_hlt;
+    output [1:0] plr_1_pos;
+    output [1:0] plr_2_pos;
+    output plr_1_lst;
+    output plr_2_lst;
+    input [2:0] plr_1_act;
+    input [2:0] plr_2_act;
+    input plr_1_rst;
+    input plr_2_rst;
+    input clk;
+
+    wire [1:0] plr_1_pos;
+    wire [1:0] plr_2_pos;
+
+    Player plr_1 (
+        .hlt(plr_1_hlt),
+        .pos(plr_1_pos),
+        .lst(plr_1_lst),
+        .act(plr_1_act),
+        .op_act(plr_2_act),
+        .op_pos(plr_2_pos),
+        .dir(1'b0),
+        .rst(plr_1_rst),
+        .clk(clk)
+    );
+
+    Player plr_2 (
+        .hlt(plr_2_hlt),
+        .pos(plr_2_pos),
+        .lst(plr_2_lst),
+        .act(plr_2_act),
+        .op_act(plr_1_act),
+        .op_pos(plr_1_pos),
+        .dir(1'b0),
+        .rst(plr_2_rst),
+        .clk(clk)
+    );
+endmodule
