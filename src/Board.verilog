@@ -9,8 +9,7 @@ module Board (
     plr_2_lst,
     plr_1_act,
     plr_2_act,
-    plr_1_rst,
-    plr_2_rst,
+    rst,
     clk
 );
     output [1:0] plr_1_hlt;
@@ -21,34 +20,55 @@ module Board (
     output plr_2_lst;
     input [2:0] plr_1_act;
     input [2:0] plr_2_act;
-    input plr_1_rst;
-    input plr_2_rst;
+    input rst;
     input clk;
 
     wire [1:0] plr_1_pos;
     wire [1:0] plr_2_pos;
 
+    parameter no_hearts = 2'b00;
+
     Player plr_1 (
         .hlt(plr_1_hlt),
         .pos(plr_1_pos),
-        .lst(plr_1_lst),
         .act(plr_1_act),
         .op_act(plr_2_act),
         .op_pos(plr_2_pos),
-        .dir(1'b0),
-        .rst(plr_1_rst),
+        .rst(rst),
         .clk(clk)
     );
 
     Player plr_2 (
         .hlt(plr_2_hlt),
         .pos(plr_2_pos),
-        .lst(plr_2_lst),
         .act(plr_2_act),
         .op_act(plr_1_act),
         .op_pos(plr_1_pos),
-        .dir(1'b0),
-        .rst(plr_2_rst),
+        .rst(rst),
         .clk(clk)
     );
+
+    assign plr_1_lst = (plr_1_hlt == no_hearts) ? 1'b1 : 1'b0;
+    assign plr_2_lst = (plr_2_hlt == no_hearts) ? 1'b1 : 1'b0;
+
+    /*
+    always @ (plr_1_hlt or plt_2_hlt)
+    begin
+        if (plr_1_hlt == 2'b00)
+        begin
+            plr_1_lst = 1'b1;
+            plr_2_lst = 1'b0;
+        end
+        else if (plr_2_hlt == 2'b00)
+        begin
+            plr_1_lst = 1'b0;
+            plr_2_lst = 1'b1;
+        end
+        else
+        begin
+            plr_1_lst = 1'b0;
+            plr_2_lst = 1'b0;
+        end
+    end
+    */
 endmodule

@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 
-// Same as Testbench.
-module BoardTest2 ();
+// Same as Sample with extra additions.
+module BoardTest3 ();
     wire [1:0] player_1_health;
     wire [1:0] player_2_health;
     wire [1:0] player_1_position;
@@ -66,50 +66,62 @@ module BoardTest2 ();
         player_2_action = mf;
         #53;
 
+        // Reset.
+        reset = 1;
+        #7;
+
+        reset = 0;
+        #47;
+
+        // Action 1.
+        player_1_action = mf;
+        player_2_action = mf;
+        #53;
+
+        // Action 2.
+        player_1_action = mf;
+        player_2_action = mf;
+        #53;
+
         // Action 3.
-        player_1_action = p;
-        player_2_action = j;
-        #53;
-
-        // Action 4.
-        player_1_action = p;
-        player_2_action = k;
-        #53;
-
-        // Action 5.
         player_1_action = p;
         player_2_action = p;
         #53;
 
-        // Action 6.
+        // Action 4.
+        player_1_action = k;
+        player_2_action = mf;
+        #53;
+
+        // Action 5.
         player_1_action = mf;
+        player_2_action = p;
+        #53;
+
+        // Action 6.
+        player_1_action = w;
         player_2_action = w;
         #53;
 
         // Action 7.
-        player_1_action = j;
+        player_1_action = w;
         player_2_action = w;
         #50;
 
         // Action 8.
         player_1_action = p;
         player_2_action = k;
-        #47;
+        #53;
 
         // Action 9.
-        player_1_action = k;
-        player_2_action = j;
-        #53;
+        player_1_action = j;
+        player_2_action = p;
+        #45;
 
         // Action 10.
-        player_1_action = mb;
-        player_2_action = k;
-        #47;
-
-        // Action 11.
-        player_1_action = k;
-        player_2_action = mf;
-        #53;
+        player_1_action = p;
+        player_2_action = w;
+        #40;
 
         $finish;
     end

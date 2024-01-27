@@ -1,14 +1,16 @@
 `timescale 1ns / 1ps
 
+// Same as Sample.
 module BoardTest ();
     wire [1:0] player_1_health;
     wire [1:0] player_2_health;
     wire [1:0] player_1_position;
     wire [1:0] player_2_position;
+    wire player_1_lost;
+    wire player_2_lost;
     reg [2:0] player_1_action;
     reg [2:0] player_2_action;
-    reg player_1_reset;
-    reg player_2_reset;
+    reg reset;
     reg clock;
     
     Board uut (
@@ -16,10 +18,11 @@ module BoardTest ();
         .plr_2_hlt(player_2_health),
         .plr_1_pos(player_1_position),
         .plr_2_pos(player_2_position),
+        .plr_1_lst(player_1_lost),
+        .plr_2_lst(player_2_lost),
         .plr_1_act(player_1_action),
         .plr_2_act(player_2_action),
-        .plr_1_rst(player_1_reset),
-        .plr_2_rst(player_2_reset),
+        .rst(reset),
         .clk(clock)
     );
 
@@ -44,16 +47,13 @@ module BoardTest ();
     initial
     begin
         // Reset.
-        player_1_reset = 0;
-        player_2_reset = 0;
+        reset = 0;
         #1;
 
-        player_1_reset = 1;
-        player_2_reset = 1;
+        reset = 1;
         #1;
 
-        player_1_reset = 0;
-        player_2_reset = 0;
+        reset = 0;
         #1;
         
         // Action 1.
@@ -99,7 +99,7 @@ module BoardTest ();
         // Action 9.
         player_1_action = j;
         player_2_action = p;
-        #53;
+        #45;
 
         $finish;
     end
