@@ -6,6 +6,7 @@ module Player (
     act,
     op_act,
     op_pos,
+    en,
     rst,
     clk
 );
@@ -14,11 +15,13 @@ module Player (
     input [2:0] act;
     input [2:0] op_act;
     input [1:0] op_pos;
+    input en;
     input rst;
     input clk;
 
     reg [1:0] hlt;
     reg [1:0] pos;
+
     reg [2:0] cur_act;
     reg [2:0] prev_act;
 
@@ -58,6 +61,8 @@ module Player (
 
     always @ (posedge clk)
     begin
+        if (~en)
+        begin
         prev_act = cur_act;
         cur_act = act;
 
@@ -98,5 +103,6 @@ module Player (
                 hlt = hlt - 1;
             end
         end
+    end
     end
 endmodule

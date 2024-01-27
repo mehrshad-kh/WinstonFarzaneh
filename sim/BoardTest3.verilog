@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-// Same as Sample with extra additions.
+// Same as test 1 with extra additions.
 module BoardTest3 ();
     wire [1:0] player_1_health;
     wire [1:0] player_2_health;
@@ -103,25 +103,47 @@ module BoardTest3 ();
         player_2_action = w;
         #53;
 
-        // Action 7.
+        // Reset.
+        reset = 1;
+        #7;
+
+        reset = 0;
+        #47;
+
+        // Action 1.
+        player_1_action = mf;
+        player_2_action = mf;
+        #50;
+
+        // Action 2.
+        player_1_action = mf;
+        player_2_action = mf;
+        #50;
+
+        // Action 3.
         player_1_action = w;
         player_2_action = w;
         #50;
 
-        // Action 8.
+        // Action 4.
         player_1_action = p;
         player_2_action = k;
         #53;
 
-        // Action 9.
+        // Action 5.
         player_1_action = j;
         player_2_action = p;
         #45;
 
-        // Action 10.
+        // Action 6.
         player_1_action = p;
         player_2_action = w;
-        #40;
+        #60;
+
+        // Action 7.
+        player_1_action = p;
+        player_2_action = p;
+        #60;
 
         $finish;
     end

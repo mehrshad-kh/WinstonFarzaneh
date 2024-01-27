@@ -23,6 +23,8 @@ module Board (
     input rst;
     input clk;
 
+    wire en;
+
     wire [1:0] plr_1_pos;
     wire [1:0] plr_2_pos;
 
@@ -34,6 +36,7 @@ module Board (
         .act(plr_1_act),
         .op_act(plr_2_act),
         .op_pos(plr_2_pos),
+        .en(en),
         .rst(rst),
         .clk(clk)
     );
@@ -44,31 +47,12 @@ module Board (
         .act(plr_2_act),
         .op_act(plr_1_act),
         .op_pos(plr_1_pos),
+        .en(en),
         .rst(rst),
         .clk(clk)
     );
 
     assign plr_1_lst = (plr_1_hlt == no_hearts) ? 1'b1 : 1'b0;
     assign plr_2_lst = (plr_2_hlt == no_hearts) ? 1'b1 : 1'b0;
-
-    /*
-    always @ (plr_1_hlt or plt_2_hlt)
-    begin
-        if (plr_1_hlt == 2'b00)
-        begin
-            plr_1_lst = 1'b1;
-            plr_2_lst = 1'b0;
-        end
-        else if (plr_2_hlt == 2'b00)
-        begin
-            plr_1_lst = 1'b0;
-            plr_2_lst = 1'b1;
-        end
-        else
-        begin
-            plr_1_lst = 1'b0;
-            plr_2_lst = 1'b0;
-        end
-    end
-    */
+    assign en = plr_1_lst ^ plr_2_lst;
 endmodule
