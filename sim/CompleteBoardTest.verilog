@@ -1,12 +1,6 @@
 `timescale 1ns / 1ps
 
 module CompleteBoardTest ();
-    reg [5:0] player_1_action;
-    reg [5:0] player_2_action;
-    reg switch;
-    reg reset;
-    reg clock;
-    
     wire [7:0] player_1_health;
     wire [7:0] player_2_health;
     wire [4:0] player_1_health_digit_select;
@@ -16,6 +10,12 @@ module CompleteBoardTest ();
     wire player_1_lost;
     wire player_2_lost;
 
+    reg [5:0] player_1_action;
+    reg [5:0] player_2_action;
+    reg switch;
+    reg reset;
+    reg clock;
+    
     parameter none = 6'b000000;
     parameter j = 6'b100000;
     parameter k = 6'b010000;
@@ -52,16 +52,16 @@ module CompleteBoardTest ();
 
     initial
     begin
-        switch = 1'b0;
+        switch = 1'b1;
         
         // Reset.
-        reset = 0;
+        reset = 1'b0;
         #1;
 
-        reset = 1;
+        reset = 1'b1;
         #1;
 
-        reset = 0;
+        reset = 1'b0;
         #1;
 
         // Action 1.

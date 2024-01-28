@@ -29,38 +29,36 @@ module CompleteBoard (
     input rst;
     input clk;
 
-    reg [2:0] plr_1_pos;
-    reg [2:0] plr_2_pos;
-
-    wire inter_clk;
-    wire [2:0] inter_plr_1_act;
-    wire [2:0] inter_plr_2_act;
-    wire [1:0] inter_plr_1_hlt;
-    wire [1:0] inter_plr_2_hlt;
-    wire [1:0] inter_plr_1_pos;
-    wire [1:0] inter_plr_2_pos;
+    wire intr_clk;
+    wire [2:0] intr_plr_1_act;
+    wire [2:0] intr_plr_2_act;
+    wire [1:0] intr_plr_1_hlt;
+    wire [1:0] intr_plr_2_hlt;
+    wire [1:0] intr_plr_1_pos;
+    wire [1:0] intr_plr_2_pos;
 
     Board board (
-        .plr_1_hlt(inter_plr_1_hlt),
-        .plr_2_hlt(inter_plr_2_hlt),
-        .plr_1_pos(inter_plr_1_pos),
-        .plr_2_pos(inter_plr_2_pos),
+        .plr_1_hlt(intr_plr_1_hlt),
+        .plr_2_hlt(intr_plr_2_hlt),
+        .plr_1_pos(intr_plr_1_pos),
+        .plr_2_pos(intr_plr_2_pos),
         .plr_1_lst(plr_1_lst),
-        .plr_2_lst(plr_1_lst),
-        .plr_1_act(inter_plr_1_act),
-        .plr_2_act(inter_plr_2_act),
+        .plr_2_lst(plr_2_lst),
+        .plr_1_act(intr_plr_1_act),
+        .plr_2_act(intr_plr_2_act),
         .sw(sw),
         .rst(rst),
-        .clk(inter_clk)
+        // Change to .clk(clk) for simulation purposes.
+        .clk(intr_clk)
     );
 
     ActionConverter plr_1_act_cnvrtr (
-        .out(inter_plr_1_act),
+        .out(intr_plr_1_act),
         .in(plr_1_act)
     );
 
     ActionConverter plr_2_act_cnvrtr (
-        .out(inter_plr_2_act),
+        .out(intr_plr_2_act),
         .in(plr_2_act)
     );
 
@@ -68,28 +66,28 @@ module CompleteBoard (
         .dgt_slct_out(plr_1_hlt_dgt_slct),
         .data_out(plr_1_hlt),
         .dgt_slct_in(5'b00001),
-        .data_in({0, inter_plr_1_hlt})
+        .data_in({1'b0, intr_plr_1_hlt})
     );
     
     BcdSevSegConverter plr_2_hlt_cnvrtr (
         .dgt_slct_out(plr_2_hlt_dgt_slct),
         .data_out(plr_2_hlt),
         .dgt_slct_in(5'b01000),
-        .data_in({0, inter_plr_2_hlt})
+        .data_in({1'b0, intr_plr_2_hlt})
     );
 
     FrequencyDivider frq_dvdr (
-        .out(inter_clk), 
+        .out(intr_clk), 
         .in(clk)
     );
 
     PositionConverter plr_1_pos_cnvrtr (
         .out(plr_1_pos),
-        .in(inter_plr_1_pos)
+        .in(intr_plr_1_pos)
     );
 
     PositionConverter plr_2_pos_cnvrtr (
         .out(plr_2_pos),
-        .in(inter_plr_2_pos)
+        .in(intr_plr_2_pos)
     );
 endmodule

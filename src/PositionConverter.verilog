@@ -16,9 +16,21 @@ module PositionConverter (
     always @ (in)
     begin
         case (in)
-            hm: out = 3'b100;
-            mid: out = 3'b010;
-            frnt: out = 3'b001;
+            hm: 
+            begin
+                $display("%0t: (PositionConverter: 21)", $time);
+                out = 3'b100;
+            end
+            mid: 
+            begin
+                $display("%0t: (PositionConverter: 26)", $time);
+                out = 3'b010;
+            end
+            frnt:
+            begin
+                $display("%0t: (PositionConverter: 31)", $time);
+                out = 3'b001;
+            end
         endcase
     end
 endmodule
