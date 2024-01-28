@@ -10,6 +10,7 @@ module BoardTest ();
     wire player_2_lost;
     reg [2:0] player_1_action;
     reg [2:0] player_2_action;
+    reg switch;
     reg reset;
     reg clock;
     
@@ -22,6 +23,7 @@ module BoardTest ();
         .plr_2_lst(player_2_lost),
         .plr_1_act(player_1_action),
         .plr_2_act(player_2_action),
+        .sw(switch),
         .rst(reset),
         .clk(clock)
     );
@@ -46,6 +48,8 @@ module BoardTest ();
 
     initial
     begin
+        switch = 1'b1;
+
         // Reset.
         reset = 0;
         #1;

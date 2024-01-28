@@ -9,6 +9,7 @@ module Board (
     plr_2_lst,
     plr_1_act,
     plr_2_act,
+    sw,
     rst,
     clk
 );
@@ -20,11 +21,11 @@ module Board (
     output plr_2_lst;
     input [2:0] plr_1_act;
     input [2:0] plr_2_act;
+    input sw;
     input rst;
     input clk;
 
     wire en;
-
     wire [1:0] plr_1_pos;
     wire [1:0] plr_2_pos;
 
@@ -37,6 +38,7 @@ module Board (
         .op_act(plr_2_act),
         .op_pos(plr_2_pos),
         .en(en),
+        .sw(sw),
         .rst(rst),
         .clk(clk)
     );
@@ -48,6 +50,7 @@ module Board (
         .op_act(plr_1_act),
         .op_pos(plr_1_pos),
         .en(en),
+        .sw(sw),
         .rst(rst),
         .clk(clk)
     );

@@ -7,6 +7,7 @@ module Player (
     op_act,
     op_pos,
     en,
+    sw,
     rst,
     clk
 );
@@ -16,6 +17,7 @@ module Player (
     input [2:0] op_act;
     input [1:0] op_pos;
     input en;
+    input sw;
     input rst;
     input clk;
 
@@ -42,7 +44,7 @@ module Player (
     
     always @ (negedge rst)
     begin
-        if (~rst)
+        if (!rst)
         begin
             hlt = three_hearts;
             prev_act = none;
@@ -61,7 +63,7 @@ module Player (
 
     always @ (posedge clk)
     begin
-        if (~en)
+        if (!en && sw)
         begin
         prev_act = cur_act;
         cur_act = act;
