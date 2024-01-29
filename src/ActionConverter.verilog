@@ -42,7 +42,6 @@ module ActionConverter (
             end
             6'b000100: 
             begin
-
                 $display("%0t: (ActionConverter: 45)", $time);
                 out = w;
             end
