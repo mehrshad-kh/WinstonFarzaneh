@@ -1,5 +1,6 @@
 `timescale 1ns / 1ps
 
+// Active low enable.
 module Player (
     hlt,
     pos,

@@ -5,8 +5,8 @@ module Board (
     plr_2_hlt,
     plr_1_pos,
     plr_2_pos,
-    plr_1_lst,
-    plr_2_lst,
+    plr_1_wn,
+    plr_2_wn,
     plr_1_act,
     plr_2_act,
     sw,
@@ -17,8 +17,8 @@ module Board (
     output [1:0] plr_2_hlt;
     output [1:0] plr_1_pos;
     output [1:0] plr_2_pos;
-    output plr_1_lst;
-    output plr_2_lst;
+    output plr_1_wn;
+    output plr_2_wn;
     input [2:0] plr_1_act;
     input [2:0] plr_2_act;
     input sw;
@@ -55,7 +55,7 @@ module Board (
         .clk(clk)
     );
 
-    assign plr_1_lst = (plr_1_hlt == no_hearts) ? 1'b1 : 1'b0;
-    assign plr_2_lst = (plr_2_hlt == no_hearts) ? 1'b1 : 1'b0;
-    assign en = plr_1_lst ^ plr_2_lst;
+    assign plr_1_wn = (plr_2_hlt == no_hearts) ? 1'b1 : 1'b0;
+    assign plr_2_wn = (plr_1_hlt == no_hearts) ? 1'b1 : 1'b0;
+    assign en = plr_1_wn ^ plr_2_wn;
 endmodule

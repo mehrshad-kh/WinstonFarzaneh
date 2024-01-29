@@ -20,41 +20,20 @@ module ActionConverter (
     always @ (in)
     begin
         case (in)
-            6'b000000: 
-            begin
-                $display("%0t: (ActionConverter: 25)", $time);
-                out = none;
-            end
             6'b100000: 
-            begin
-                $display("%0t: (ActionConverter: 30)", $time);
                 out = j;
-            end
             6'b010000: 
-            begin
-                $display("%0t: (ActionConverter: 34)", $time);
                 out = k;
-            end
             6'b001000: 
-            begin
-                $display("%0t: (ActionConverter: 39)", $time);
                 out = p;
-            end
             6'b000100: 
-            begin
-                $display("%0t: (ActionConverter: 45)", $time);
                 out = w;
-            end
             6'b000010: 
-            begin
                 out = mf;
-                $display("%0t: (ActionConverter: 50) out = 0x%0h", $time, out);
-            end
             6'b000001: 
-            begin
-                $display("%0t: (ActionConverter: 55)", $time);
                 out = mb;
-            end
+            default:
+                out = none;
         endcase
     end
 endmodule

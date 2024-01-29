@@ -9,46 +9,55 @@ module DoubleBcdSevSegConverter (
 );
     output [4:0] dgt_slct;
     output [7:0] data_out;
-    input [2:0] data_in_1;
-    input [2:0] data_in_2;
+    input [3:0] data_in_1;
+    input [3:0] data_in_2;
     input clk;
     
-    reg present_state = 1'b0;
+    reg slct = 1'b0;
     reg [4:0] dgt_slct;
     reg [7:0] data_out;
 
     always @ (posedge clk)
     begin
-        case (present_state)
+        case (slct)
             1'b0:
             begin
+                // POSSIBLE PROBLEM.
+                // Moved digit selection before case.
+
+                // Select the left-most digit.
+                dgt_slct = 5'b01000;
                 case (data_in_1)
-                    3'b000: data_out = 8'b00111111;
-                    3'b001: data_out = 8'b00000110;
-                    3'b010: data_out = 8'b01011011;
-                    3'b011: data_out = 8'b01001111;
-                    3'b100: data_out = 8'b01100110;
-                    3'b101: data_out = 8'b01101101;
-                    3'b110: data_out = 8'b01111101;
-                    3'b111: data_out = 8'b00000111;
+                    4'b0000: data_out = 8'b00111111;
+                    4'b0001: data_out = 8'b00000110;
+                    4'b0010: data_out = 8'b01011011;
+                    4'b0011: data_out = 8'b01001111;
+                    4'b0100: data_out = 8'b01100110;
+                    4'b0101: data_out = 8'b01101101;
+                    4'b0110: data_out = 8'b01111101;
+                    4'b0111: data_out = 8'b00000111;
+                    4'b1000: data_out = 8'b01111111;
+                    4'b1001: data_out = 8'b01101111;
                 endcase
-                dgt_slct = 5'b00001;
             end
             1'b1:
             begin
+                // Select the right-most digit.
+                dgt_slct = 5'b00001;
                 case (data_in_2)
-                    3'b000: data_out = 8'b00111111;
-                    3'b001: data_out = 8'b00000110;
-                    3'b010: data_out = 8'b01011011;
-                    3'b011: data_out = 8'b01001111;
-                    3'b100: data_out = 8'b01100110;
-                    3'b101: data_out = 8'b01101101;
-                    3'b110: data_out = 8'b01111101;
-                    3'b111: data_out = 8'b00000111;
+                    4'b0000: data_out = 8'b00111111;
+                    4'b0001: data_out = 8'b00000110;
+                    4'b0010: data_out = 8'b01011011;
+                    4'b0011: data_out = 8'b01001111;
+                    4'b0100: data_out = 8'b01100110;
+                    4'b0101: data_out = 8'b01101101;
+                    4'b0110: data_out = 8'b01111101;
+                    4'b0111: data_out = 8'b00000111;
+                    4'b1000: data_out = 8'b01111111;
+                    4'b1001: data_out = 8'b01101111;
                 endcase
-                dgt_slct = 5'b01000;
             end
         endcase
-        present_state = ~present_state;
+        slct = ~slct;
     end
 endmodule
