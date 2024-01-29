@@ -41,10 +41,10 @@ module Player (
     parameter hm = 2'b00;
     parameter mid = 2'b01;
     parameter frnt = 2'b10;
-    
-    always @ (negedge rst)
+
+    always @ (posedge clk)
     begin
-        if (!rst)
+        if (rst)
         begin
             hlt = three_hearts;
             prev_act = none;
@@ -59,54 +59,51 @@ module Player (
              */
             pos = hm;
         end
-    end
+        else
+        begin
+            if (!en && sw)
+            begin
+                prev_act = cur_act;
+                cur_act = act;
 
-    always @ (posedge clk)
-    begin
-        $display("%0t: (Player:66)", $time);
-        if (!en && sw)
-        begin
-        prev_act = cur_act;
-        cur_act = act;
-
-        if (act == w && prev_act == w && hlt < 3)
-        begin
-            hlt = hlt + 1;
-        end
-        else if (act == mf && pos != frnt)
-        begin
-            $display("%0t: (Player:78)", $time);
-            pos = pos + 1;
-        end
-        else if (act == mb && pos != hm)
-        begin
-            pos = pos - 1;
-        end
-        
-        if (op_act == p && pos == op_pos && pos == frnt)
-        begin
-            if (act == p)
-            begin
-                pos = pos - 1;
-            end
-            else if (act == w || act == k || act == mf)
-            begin
-                hlt = (hlt >= 2) ? (hlt - 2) : 0;
-            end
-        end
-        else if (op_act == k && 
-            (pos == 2 && op_pos != 0 || op_pos == 2 && pos != 0))
-        begin
-            if (act == k)
-            begin
-                pos = pos - 1;
-            end
-            else if (act == w || act == mf 
-                || (act == p && !(pos == op_pos && pos == frnt)))
-            begin
-                hlt = hlt - 1;
+                if (act == w && prev_act == w && hlt < 3)
+                begin
+                    hlt = hlt + 1;
+                end
+                else if (act == mf && pos != frnt)
+                begin
+                    pos = pos + 1;
+                end
+                else if (act == mb && pos != hm)
+                begin
+                    pos = pos - 1;
+                end
+                
+                if (op_act == p && pos == op_pos && pos == frnt)
+                begin
+                    if (act == p)
+                    begin
+                        pos = pos - 1;
+                    end
+                    else if (act == w || act == k || act == mf)
+                    begin
+                        hlt = (hlt >= 2) ? (hlt - 2) : 0;
+                    end
+                end
+                else if (op_act == k && 
+                    (pos == 2 && op_pos != 0 || op_pos == 2 && pos != 0))
+                begin
+                    if (act == k)
+                    begin
+                        pos = pos - 1;
+                    end
+                    else if (act == w || act == mf 
+                        || (act == p && !(pos == op_pos && pos == frnt)))
+                    begin
+                        hlt = hlt - 1;
+                    end
+                end
             end
         end
-    end
     end
 endmodule
