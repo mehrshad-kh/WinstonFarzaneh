@@ -6,8 +6,8 @@ module CompleteBoard (
     hlt_dgt_slct,
     plr_1_pos,
     plr_2_pos,
-    plr_1_lst,
-    plr_2_lst,
+    plr_1_wn,
+    plr_2_wn,
     plr_1_act,
     plr_2_act,
     sw,
@@ -18,8 +18,8 @@ module CompleteBoard (
     output [4:0] hlt_dgt_slct;
     output [2:0] plr_1_pos;
     output [2:0] plr_2_pos;
-    output plr_1_lst;
-    output plr_2_lst;
+    output plr_1_wn;
+    output plr_2_wn;
     input [5:0] plr_1_act;
     input [5:0] plr_2_act;
     input sw;
@@ -40,8 +40,8 @@ module CompleteBoard (
         .plr_2_hlt (intr_plr_2_hlt),
         .plr_1_pos (intr_plr_1_pos),
         .plr_2_pos (intr_plr_2_pos),
-        .plr_1_lst (plr_1_lst),
-        .plr_2_lst (plr_2_lst),
+        .plr_1_wn (plr_1_wn),
+        .plr_2_wn (plr_2_wn),
         .plr_1_act (intr_plr_1_act),
         .plr_2_act (intr_plr_2_act),
         .sw (sw),
