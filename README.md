@@ -29,7 +29,7 @@ It makes use of DIP switches for player actions,
 LED lights for displaying each player position, 
 and two digits of the seven-segment display for each player's health.
 
-## Name
+## Nomenclature
 
 The project is named after two people, 
 namely Sir Winston Churchill, 
