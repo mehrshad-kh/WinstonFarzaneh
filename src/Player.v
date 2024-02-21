@@ -1,6 +1,7 @@
 `timescale 1ns / 1ps
 
-// Active low enable.
+// Active-low enable.
+// Synchronous enable and reset.
 module Player (
     hlt,
     pos,
