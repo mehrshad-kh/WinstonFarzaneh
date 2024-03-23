@@ -26,7 +26,7 @@ Each player action may be one of the following:
 
 The [CompleteBoard](src/CompleteBoard.v) module has been implemented on a Xilinx Spartan3 FPGA board using Xiling ISE Design Suite.
 It makes use of DIP switches for player actions,
-LED lights for displaying each player position, 
+LED lights for displaying each player's position and the winner,
 and two digits of the seven-segment display for each player's health.
 
 ## Nomenclature
